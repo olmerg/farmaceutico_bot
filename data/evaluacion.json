@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "pregunta": "¿Qué medicamentos contienen ACICLOVIR?",
+    "tool_esperada": "buscar_por_principio_activo",
+    "args_esperados": {"principio": "ACICLOVIR"},
+    "criterio_exito": "la respuesta menciona al menos 3 medicamentos diferentes",
+    "tipo": "principio_activo"
+  },
+  {
+    "id": 2,
+    "pregunta": "¿Qué productos hay de TYLENOL?",
+    "tool_esperada": "buscar_por_nombre_comercial",
+    "args_esperados": {"nombre": "TYLENOL"},
+    "criterio_exito": "la respuesta menciona al menos 1 producto con nombre TYLENOL",
+    "tipo": "nombre_comercial"
+  },
+  {
+    "id": 3,
+    "pregunta": "¿Cuáles medicamentos están vencidos?",
+    "tool_esperada": "consultar_vencidos",
+    "args_esperados": {},
+    "criterio_exito": "la respuesta menciona al menos 5 medicamentos vencidos",
+    "tipo": "vencidos"
+  },
+  {
+    "id": 4,
+    "pregunta": "¿Qué medicamentos tiene Pfizer?",
+    "tool_esperada": "consultar_por_titular",
+    "args_esperados": {"titular": "PFIZER"},
+    "criterio_exito": "la respuesta menciona al menos 3 medicamentos de Pfizer",
+    "tipo": "titular"
+  },
+  {
+    "id": 5,
+    "pregunta": "¿Cuáles medicamentos son de vía oral?",
+    "tool_esperada": "consultar_por_via",
+    "args_esperados": {"via": "ORAL"},
+    "criterio_exito": "la respuesta menciona al menos 5 medicamentos de vía oral",
+    "tipo": "via_administracion"
+  },
+  {
+    "id": 6,
+    "pregunta": "¿Qué medicamentos contienen IBUPROFENO?",
+    "tool_esperada": "buscar_por_principio_activo",
+    "args_esperados": {"principio": "IBUPROFENO"},
+    "criterio_exito": "la respuesta menciona al menos 3 medicamentos diferentes",
+    "tipo": "principio_activo"
+  },
+  {
+    "id": 7,
+    "pregunta": "¿Qué productos hay de ADVIL?",
+    "tool_esperada": "buscar_por_nombre_comercial",
+    "args_esperados": {"nombre": "ADVIL"},
+    "criterio_exito": "la respuesta menciona al menos 1 producto con nombre ADVIL",
+    "tipo": "nombre_comercial"
+  },
+  {
+    "id": 8,
+    "pregunta": "¿Qué medicamentos tiene NOVARTIS?",
+    "tool_esperada": "consultar_por_titular",
+    "args_esperados": {"titular": "NOVARTIS"},
+    "criterio_exito": "la respuesta menciona al menos 3 medicamentos de Novartis",
+    "tipo": "titular"
+  },
+  {
+    "id": 9,
+    "pregunta": "¿Cuáles medicamentos son de vía parenteral?",
+    "tool_esperada": "consultar_por_via",
+    "args_esperados": {"via": "PARENTERAL"},
+    "criterio_exito": "la respuesta menciona al menos 3 medicamentos de vía parenteral",
+    "tipo": "via_administracion"
+  },
+  {
+    "id": 10,
+    "pregunta": "¿Qué medicamentos contienen PARACETAMOL?",
+    "tool_esperada": "buscar_por_principio_activo",
+    "args_esperados": {"principio": "PARACETAMOL"},
+    "criterio_exito": "la respuesta menciona al menos 3 medicamentos diferentes",
+    "tipo": "principio_activo"
+  }
+]

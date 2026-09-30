@@ -6,16 +6,25 @@ from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain_nvidia_ai_endpoints import ChatNVIDIA, Model
 from langchain_nvidia_ai_endpoints._statics import MODEL_TABLE
+from langchain_openai import ChatOpenAI
 from langgraph.checkpoint.memory import MemorySaver
 
 from tools import TOOLS
 
 load_dotenv()
 
-if not os.environ.get("NVIDIA_API_KEY"):
-    raise ValueError("NVIDIA_API_KEY no configurada. Copia .env-example a .env y agrega tu clave.")
+PROVEEDOR = os.environ.get("PROVEEDOR", "nvidia").lower()
 
-MODELO = os.environ.get("NVIDIA_MODEL", "nvidia/nemotron-3.5-lightning-30b-a3b")
+if PROVEEDOR == "nvidia":
+    if not os.environ.get("NVIDIA_API_KEY"):
+        raise ValueError("NVIDIA_API_KEY no configurada. Copia .env-example a .env y agrega tu clave.")
+    MODELO = os.environ.get("NVIDIA_MODEL", "nvidia/nemotron-3.5-lightning-30b-a3b")
+elif PROVEEDOR == "groq":
+    if not os.environ.get("GROQ_API_KEY"):
+        raise ValueError("GROQ_API_KEY no configurada. Agrega tu clave de Groq al .env.")
+    MODELO = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile")
+else:
+    raise ValueError(f"Proveedor no soportado: {PROVEEDOR}. Usa 'nvidia' o 'groq'.")
 
 
 def _registrar_perfil_modelo() -> None:
@@ -34,14 +43,22 @@ def _registrar_perfil_modelo() -> None:
 
 def crear_agente():
     """Crea el agente farmacéutico con tool-calling."""
-    _registrar_perfil_modelo()
-    llm = ChatNVIDIA(
-        model=MODELO,
-        temperature=1.0,
-        top_p=0.95,
-        max_completion_tokens=1024,
-        model_kwargs={"chat_template_kwargs": {"enable_thinking": False}},
-    )
+    if PROVEEDOR == "nvidia":
+        _registrar_perfil_modelo()
+        llm = ChatNVIDIA(
+            model=MODELO,
+            temperature=0,
+            max_completion_tokens=1024,
+            model_kwargs={"chat_template_kwargs": {"enable_thinking": False}},
+        )
+    else:
+        llm = ChatOpenAI(
+            base_url="https://api.groq.com/openai/v1",
+            api_key=os.environ["GROQ_API_KEY"],
+            model=MODELO,
+            temperature=0,
+            max_tokens=1024,
+        )
 
     return create_agent(
         model=llm,
